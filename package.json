@@ -1,0 +1,22 @@
+{
+  "name": "schema-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec 'tsx src/server.ts'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "nodemon": "^3.0.1",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.3"
+  },
+  "dependencies": {
+    "radash": "^11.0.0"
+  }
+}

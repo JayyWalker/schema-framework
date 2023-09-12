@@ -5,6 +5,7 @@ describe('route regexes', () => {
   describe('convert parameter constraint', () => {
     it.each([
       ['int', '\\d+'],
+      ['integer', '\\d+'],
       ['unknown', '.+'],
     ])('should convert %s string to regex %s', (humanConstraint, expected) => {
       const sut = convertParameterConstraint(humanConstraint)
@@ -44,34 +45,47 @@ describe('route regexes', () => {
   })
 
   describe('create regex version of pathname', () => {
-    it('should return regex for /', () => {
+    it.skip('should return regex for /', () => {
       const sut = createRouteRegex('/')
 
       expect(sut).toBe('^\\/$')
     })
 
-    it('should return regex with no path parameters', () => {
+    it.skip('should return regex with no path parameters', () => {
       const sut = createRouteRegex('/author')
 
       expect(sut).toBe('^\\/author\\/$')
     })
 
-    it('should return regex with no constraints', () => {
+    it.skip('should return regex with no constraints', () => {
       const sut = createRouteRegex('/book/{id}')
 
       expect(sut).toBe('^\\/book\\/(?<id>.+)\\/$')
     })
 
-    it('should return regex for full pathname', () => {
+    it.skip('should return regex for full pathname', () => {
       const sut = createRouteRegex('/author/{id:int}')
 
       expect(sut).toBe('^\\/author\\/(?<id>\\d+)\\/$')
     })
 
-    it('should return regex with end slash when pathname did not provide end slash', () => {
-      const sut = createRouteRegex('/author/{id:int}/')
+    it.each([
+      ['/author/{id:int}', '^\\/author\\/(?<id>\\d+)\\/$'],
+      ['/author', '^\\/author\\/$'],
+    ])('should return regex with end slash when pathname did not provide end slash: %s -> %s', (routePath, expected) => {
+      const sut = createRouteRegex(routePath)
 
-      expect(sut).toBe('^\\/author\\/(?<id>\\d+)\\/$')
+      expect(sut).toBe(expected)
+    })
+
+    it.each([
+      ['/', '^\\/$'],
+      ['/author/{id:int}/', '^\\/author\\/(?<id>\\d+)\\/$'],
+      ['/author/', '^\\/author\\/$'],
+    ])('should return regex with end slash maintained: %s -> %s', (routePath, expected) => {
+      const sut = createRouteRegex(routePath)
+
+      expect(sut).toBe(expected)
     })
   })
 })

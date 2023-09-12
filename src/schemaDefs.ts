@@ -41,6 +41,7 @@ export type ColumnDataType =
 
 
 export type EntityFieldDefinition = {
+  name: string
   dataType: ColumnDataType
   primaryKey?: boolean
   unique?: boolean
@@ -48,31 +49,38 @@ export type EntityFieldDefinition = {
   notNull?: boolean
 }
 
-// export type EntityDefinition = Record<string, EntityFieldDefinition>
-
 export type EntityDefinition = {
-  [FN in string]: EntityFieldDefinition
+  name: string
+  fields: EntityFieldDefinition[]
 }
 
-const dates: EntityDefinition = {
-  createdAt: {
+const dates: EntityFieldDefinition[] = [
+  {
+    name: 'createdAt',
     dataType: 'timestamp',
     notNull: false,
   },
-  updatedAt: {
+  {
+    name: 'updatedAt',
     dataType: 'timestamp',
     notNull: false,
   },
-}
+]
 
 export const AuthorEntity: EntityDefinition = {
-  id: {
-    autoIncrement: true,
-    dataType: 'varchar',
-    primaryKey: true,
-  },
-  name: {
-    dataType: 'varchar',
-  },
-  ...dates,
+  name: 'author',
+  fields: [
+    {
+      name: 'id',
+      autoIncrement: true,
+      dataType: 'varchar',
+      primaryKey: true,
+    },
+    {
+
+      name: 'name',
+      dataType: 'varchar',
+    },
+    ...dates,
+  ]
 }

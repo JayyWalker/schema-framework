@@ -5,11 +5,12 @@
 export function convertParameterConstraint (humanConstraint: string): string {
   switch(humanConstraint) {
     case('int'):
+    case('integer'):
       return '\\d+'
     case('unknown'):
       return '.+'
     default:
-      throw new ParameterConstraintError('Unrecognised field type provided as parameter constraint')
+      throw new ParameterConstraintError(`Unrecognised field type provided as parameter constraint: ${humanConstraint}`)
   }
 }
 

@@ -45,25 +45,25 @@ describe('route regexes', () => {
   })
 
   describe('create regex version of pathname', () => {
-    it.skip('should return regex for /', () => {
+    it('should return regex for /', () => {
       const sut = createRouteRegex('/')
 
       expect(sut).toBe('^\\/$')
     })
 
-    it.skip('should return regex with no path parameters', () => {
+    it('should return regex with no path parameters', () => {
       const sut = createRouteRegex('/author')
 
       expect(sut).toBe('^\\/author\\/$')
     })
 
-    it.skip('should return regex with no constraints', () => {
+    it('should return regex with no constraints', () => {
       const sut = createRouteRegex('/book/{id}')
 
       expect(sut).toBe('^\\/book\\/(?<id>.+)\\/$')
     })
 
-    it.skip('should return regex for full pathname', () => {
+    it('should return regex for full pathname', () => {
       const sut = createRouteRegex('/author/{id:int}')
 
       expect(sut).toBe('^\\/author\\/(?<id>\\d+)\\/$')

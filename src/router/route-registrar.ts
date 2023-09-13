@@ -1,5 +1,6 @@
-import { HttpMethods, IRoute, Route, RouteHandler } from './route'
+import { IRoute, Route, RouteHandler } from './route'
 import { createRouteRegex } from './route-regex'
+import { HttpMethods } from '../http/request'
 
 export interface IRouteRegistrar {
   routeCollection: IRoute[]

@@ -135,6 +135,7 @@ export function router(entities: Entity[]): [RouteMatcherFunc, RouteHandlerFunc]
     browse: {
       method: 'GET',
       path: '/',
+      // @ts-ignore
       handler: (): Response => {
       }
     },
@@ -153,16 +154,19 @@ export function router(entities: Entity[]): [RouteMatcherFunc, RouteHandlerFunc]
     edit: {
       method: 'PATCH',
       path: '/{primaryKey}',
+      // @ts-ignore
       handler: (): Response => {}
     },
     add: {
       method: 'POST',
       path: '/',
+      // @ts-ignore
       handler: (): Response => {}
     },
     delete: {
       method: 'DELETE',
       path: '/{primaryKey}',
+      // @ts-ignore
       handler: (): Response => {}
     }
   }
@@ -185,6 +189,8 @@ export function router(entities: Entity[]): [RouteMatcherFunc, RouteHandlerFunc]
       })
     })
   })
+
+  console.log(routes)
 
   function matcher(request: IncomingMessage): MatchedRoute {
     function normaliseRequestPathname(pathname: string) {
@@ -239,6 +245,16 @@ export function router(entities: Entity[]): [RouteMatcherFunc, RouteHandlerFunc]
   }
 
   function handler (matchedRoute: MatchedRoute, _request: IncomingMessage, response: ServerResponse<IncomingMessage>): Response {
+    console.log('matchedRoute', matchedRoute)
+
+    if (!matchedRoute?.route) {
+      console.log('No route found')
+
+      return new Response(response)
+        .status(404)
+        .body('Not found')
+    }
+
     return matchedRoute.route.handler(
       new Response(response)
     )

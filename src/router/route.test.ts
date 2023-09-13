@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { HttpMethods, IRoute, Route } from './route'
+import { IRoute, Route } from './route'
+import { HttpMethods } from '../http/request'
 
 describe('route', () => {
   const handler = (_, __) => new Response

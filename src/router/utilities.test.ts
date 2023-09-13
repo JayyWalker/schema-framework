@@ -42,6 +42,38 @@ describe('utilities', () => {
       })
     })
 
+    it('should receive undefined if no primary key is provided', () => {
+      const exampleEntity: EntityDefinition = {
+        name: 'author',
+        fields: [
+          {
+            name: 'id',
+            autoIncrement: true,
+            dataType: 'varchar',
+          },
+          {
+
+            name: 'name',
+            dataType: 'varchar',
+          },
+          {
+            name: 'createdAt',
+            dataType: 'timestamp',
+            notNull: false,
+          },
+          {
+            name: 'updatedAt',
+            dataType: 'timestamp',
+            notNull: false,
+          },
+        ]
+      }
+
+      const sut = getEntityPrimaryKeyField(exampleEntity)
+
+      expect(sut).toBeUndefined()
+    })
+
     it('should receive the entity field name', () => {
       const sut = getEntityFieldName({
         name: 'id',

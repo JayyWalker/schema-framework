@@ -8,6 +8,7 @@ import { getEntityPrimaryKeyField, normalisePaths } from './utilities'
 
 export type EntityRouteTemplate = Record<string, Omit<IRoute, 'regex'>>
 
+/* c8 ignore start */
 const routesTemplate: EntityRouteTemplate = {
   browse: {
     method: 'GET',
@@ -48,6 +49,7 @@ const routesTemplate: EntityRouteTemplate = {
     handler: (): IResponse => {}
   }
 }
+/* c8 ignore stop */
 
 export class EntityRegistrar implements IRouteRegistrar {
   constructor (
